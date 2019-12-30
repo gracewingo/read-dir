@@ -9,11 +9,21 @@ fs.readFile('./records/records4.json', (err, data) => {
     let records = JSON.parse(data);
 
     filteredList = records.filter(record => record.isActive === true);
+
+    //Of the people who are active, who has a balance exceeding 2000?
     filteredList = filteredList.filter(record => {
-        let amount;
-        amount = record.balance.replace(/[$,]/g, '')
-        console.log(amount > 2000)
-        //console.log(parseFloat(amount))
+        let amount = record.balance.replace(/[$,]/g, '')
+        return parseFloat(amount) > 2000;
     })
-    //console.log(filteredList)
+
+    //Have a `registered` timestamp after January 1st, 2016 || 1, 1, 2016 
+    filteredList = filteredList.filter(record => {
+        console.log(record.registered > 2016);
+        let date = record.registered.split(",")
+    })
+
+
+    console.log(filteredList.length);
 });
+
+

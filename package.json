@@ -1,0 +1,22 @@
+{
+  "name": "till-gw-hw",
+  "version": "1.0.0",
+  "description": "gw homework for Till",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gracewingo/till-hw.git"
+  },
+  "author": "grace wingo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gracewingo/till-hw/issues"
+  },
+  "homepage": "https://github.com/gracewingo/till-hw#readme",
+  "dependencies": {
+    "date-fns": "^2.8.1"
+  }
+}
