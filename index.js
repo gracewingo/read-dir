@@ -26,17 +26,15 @@ You don't necessarily have to write the records to a new `json` file
 - Documentation
   - How do I run this thing?
 
-You're free to make any assumptions you like outside of 
-what I've outlined and 
+You're free to make any assumptions you like outside of what I've outlined and 
 would be helpful if you'd document them. 
 If you require external dependencies, they should **not** be submitted with solution 
 - an install and/or compilation step should included as part of the documentation - FIGURE THIS OUT FOR DATE FNS 
 ---
 
-
-focus on efficiency 
-- how to get, read, and write the files in most efficient way
-
+To do:
+- look up best practices for filter method and chaining 
+- use pure javascript to compare two dates 
 
 
 scalability:
