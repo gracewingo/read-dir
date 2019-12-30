@@ -1,5 +1,6 @@
 'use strict'
 const fs = require('fs');
+const compareAsc = require('date-fns/compareAsc')
 //let file = './records/records4.json'
 
 let filteredList = [];
@@ -18,12 +19,13 @@ fs.readFile('./records/records4.json', (err, data) => {
 
     //Have a `registered` timestamp after January 1st, 2016 || 1, 1, 2016 
     filteredList = filteredList.filter(record => {
-        console.log(record.registered > 2016);
-        let date = record.registered.split(",")
+        
     })
-
-
     console.log(filteredList.length);
 });
+
+let result = compareAsc(new Date(1987, 1, 11), new Date(1989, 6, 10))
+console.log(result)
+
 
 
