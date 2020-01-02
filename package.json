@@ -16,5 +16,7 @@
     "url": "https://github.com/gracewingo/till-hw/issues"
   },
   "homepage": "https://github.com/gracewingo/till-hw#readme",
-  "dependencies": {}
+  "dependencies": {
+    "JSONStream": "^1.3.5"
+  }
 }
