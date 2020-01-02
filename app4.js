@@ -2,7 +2,7 @@ const JSONStream = require('JSONStream');
 const fs = require('fs');
 const path = require('path');
 
-const readdir = (path) => {
+function readdir(path){
     return new Promise((resolve, reject) => {
       fs.readdir(path, (error, files) => {
         error ? reject(error) : resolve(files);
@@ -11,15 +11,14 @@ const readdir = (path) => {
 };
 
 function startWriteStream(list){
-    console.log(list.length)
     const transformStream = JSONStream.stringify();
     const outputStream = fs.createWriteStream( __dirname + "/data.json" );
     transformStream.pipe(outputStream);
-    list.forEach( transformStream.write );
+    list.forEach(transformStream.write);
     transformStream.end();
 }
 
-async function readFiles(){
+(async function readFiles(){
     const files = await readdir(path.resolve(__dirname, 'records'))
     const promises = files.map(readEachFile);
     const filteredRecords = [];
@@ -27,14 +26,12 @@ async function readFiles(){
     Promise.all(promises)
         .then((results) => {
             results.map(result => filteredRecords.push(...result))
-            console.log(filteredRecords.length)
-            console.log("line 33")
             startWriteStream(filteredRecords);  
         })
         .catch(err => {
             console.log(err)
         })
-}
+})();
 
 function readEachFile(file){
     const inputStream = fs.createReadStream(`./records/${file}`);
@@ -62,7 +59,6 @@ function readEachFile(file){
            resolve(filteredList);
         })
     });
-}
+};
 
-readFiles();
 
