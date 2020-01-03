@@ -6,12 +6,17 @@ A NodeJS application designed to read, parse, filter, and write JSON files to a 
 
 To setup this project locally, follow these steps:
 
+- Fork this repository
+
 - In your terminal, install dependencies with:  
 
 - npm install 
 
-Run npm start to run the project in development mode 
+- Run npm start to run the project in development mode 
 
 # Assumptions: 
-1) all date time formats for registered are the same in each JSON file.
-2) the balance value will have trailing 2 after decimal in each JSON file. 
+
+These are the assumptions I made when building the app:
+
+1) All date time formats for the registered property are in the same format in each JSON file.
+2) The value for the balance property will have 2 decimal places.
