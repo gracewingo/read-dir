@@ -1,54 +1,63 @@
-'use strict'
+const JSONStream = require('JSONStream');
 const fs = require('fs');
 const path = require('path');
-const pathToRecords = path.resolve(__dirname, 'records');
-let filteredList = [];
 
-const readdir = (path) => {
+function readdir(path){
     return new Promise((resolve, reject) => {
       fs.readdir(path, (error, files) => {
         error ? reject(error) : resolve(files);
       });
     });
-  };
+};
 
-readdir(pathToRecords)
-.then((files) => 
-        files.map(file => fs.readFile(path.join('records', file), (err, data) => {
-            if (err) throw err;
-            let records = JSON.parse(data);
-            
+function startWriteStream(list){
+    const transformStream = JSONStream.stringify();
+    const outputStream = fs.createWriteStream( __dirname + "/data.json" );
+    transformStream.pipe(outputStream);
+    list.forEach(transformStream.write);
+    transformStream.end();
+}
+
+(async function readFiles(){
+    const files = await readdir(path.resolve(__dirname, 'records'))
+    const promises = files.map(readEachFile);
+    const filteredRecords = [];
+
+    Promise.all(promises)
+        .then((results) => {
+            results.map(result => filteredRecords.push(...result))
+            startWriteStream(filteredRecords);  
+        })
+        .catch(err => {
+            console.log(err)
+        })
+})();
+
+function readEachFile(file){
+    const inputStream = fs.createReadStream(`./records/${file}`);
+    const transformStream = JSONStream.parse();
+    let filteredList = [];
+    return new Promise((resolve, reject) => {
+        inputStream
+        .pipe(transformStream)
+        .on("data", (records) => {
             filteredList = records.filter(record => record.isActive === true);
-            //Of the people who are active, who has a balance exceeding 2000?
-            filteredList2 = filteredList.filter(record => {
+
+            filteredList = filteredList.filter(record => {
                 let amount = record.balance.replace(/[$,]/g, '');
                 return parseFloat(amount) > 2000;
             })
-            //Has a registered` timestamp after January 1st 2016. Return records if first date is after the second one
-            filteredList3 = filteredList.filter(record => {
+
+            filteredList = filteredList.filter(record => {
                 let registered = record.registered;
                 registered = new Date(registered);
                 return registered > new Date('January 1 2016');
             })
-            console.log(filteredList.length)
-            console.log(file)
-            // let stream = fs.createWriteStream("filteredRecords.txt");
-            // console.log(new Date().toISOString());
-            
-            // stream.write(JSON.stringify(filteredList));  
-            
-            // filteredList.forEach(function (data) {
-            //     stream.write(JSON.stringify(data));
-            // })
-
-            // stream.on('finish', () => {
-            //     //console.log(`wrote all the array data to file filteredRecords`);
-            // });
-            // console.log(new Date().toISOString());
-            // stream.end()
-            //console.log()
-            console.log(filteredList.length)
-        })))
-.catch((error) => console.error(error.message));
-
+        })
+        .on('error', reject)
+        .on('end', () => {
+           resolve(filteredList);
+        })
+    });
+};
 

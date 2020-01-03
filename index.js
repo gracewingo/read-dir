@@ -18,6 +18,7 @@ You don't necessarily have to write the records to a new `json` file
   - Memory consumption
   - Execution speed
   - Number of concurrently open files, etc.
+  
 - Reusability
 - Testability
 - Scalability
@@ -32,12 +33,6 @@ If you require external dependencies, they should **not** be submitted with solu
 - an install and/or compilation step should included as part of the documentation - FIGURE THIS OUT FOR JSONStream 
 ---
 
-To do:
-- look up best practices for filter method and chaining 
-- watch youtube video on the nodejs path module
-- look into create read stream and write read stream 
-- create a node server? 
-
 
 scalability:
 https://stackoverflow.com/questions/2727167/how-do-you-get-a-list-of-the-names-of-all-files-present-in-a-directory-in-node-j
@@ -47,11 +42,7 @@ https://stackoverflow.com/questions/559112/how-to-convert-a-currency-string-to-a
 
 https://www.yaoyuyang.com/2017/01/20/nodejs-batch-file-processing.html
 
-return isAfter(registered, new Date('January 1 2016'));
 
-Assumptions: 
-1) all date time formats for registered are the same in each JSON file.
-2) the balance value will have trailing 2 after decimal in each JSON file. 
 
 
 results: 
