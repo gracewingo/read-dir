@@ -10,7 +10,7 @@ In your terminal, install dependencies with:
 
 npm install 
 
-Run npm start to run the project in development mode 
+Run npm dev to run the project in development mode 
 
 # Assumptions: 
 1) all date time formats for registered are the same in each JSON file.
